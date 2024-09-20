@@ -1,0 +1,46 @@
+id: migrate_nodes_test
+label: 'migrate_nodes'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+
+  urls:
+    - modules/custom/migrate_json/data/import.json
+
+  item_selector: /nodes
+
+  fields:
+    - name: title
+      label: ''
+      selector: node/title
+    - name: body
+      label: ''
+      selector: node/body
+    - name: main_section
+      label: ''
+      selector: node/main_section
+
+  ids:
+    title:
+      type: string
+
+process:
+  title: title
+  body: body
+  field_section:
+    - plugin: entity_generate
+      source: main_section
+      entity_type: taxonomy_term
+      ignore_case: true
+      value_key: name
+      bundle_key: vid
+      bundle: section
+      values:
+        name: main_section
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: entry
+migration_dependencies:
+  optional: []

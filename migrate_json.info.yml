@@ -1,0 +1,8 @@
+name: 'migrate_json'
+type: module
+description: 'Migrate from a JSON file.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - migrate:migrate
+  - migrate_plus:migrate_plus
