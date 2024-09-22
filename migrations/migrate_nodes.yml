@@ -1,6 +1,10 @@
 id: migrate_nodes_test
 label: 'migrate_nodes'
 source:
+  constants:
+    pseudo_field_district_tid: 8
+    product_term_tid: 9
+
   plugin: url
   data_fetcher_plugin: file
   data_parser_plugin: json
@@ -35,12 +39,17 @@ process:
       ignore_case: true
       value_key: name
       bundle_key: vid
-      bundle: section
+      bundle: office_name
       values:
         name: main_section
+        parent: 'constants/pseudo_field_district_tid'
+        field_product: 'constants/product_term_tid'
 
 destination:
   plugin: 'entity:node'
   default_bundle: entry
+  overwrite_properties:
+    -  field_section
+
 migration_dependencies:
   optional: []
