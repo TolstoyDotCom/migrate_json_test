@@ -4,7 +4,8 @@
       "node" : {
         "title" : "Test",
         "body" : "Test",
-        "main_section" : "web"
+        "main_section" : "web",
+        "my_path": "some-path-to-content"
       }
     }
   ]

@@ -4,6 +4,7 @@ source:
   constants:
     pseudo_field_district_tid: 8
     product_term_tid: 9
+    slash_character: '/'
 
   plugin: url
   data_fetcher_plugin: file
@@ -16,14 +17,17 @@ source:
 
   fields:
     - name: title
-      label: ''
+      label: 'title'
       selector: node/title
     - name: body
-      label: ''
+      label: 'body'
       selector: node/body
     - name: main_section
-      label: ''
+      label: 'main_section'
       selector: node/main_section
+    - name: my_path
+      label: 'my_path'
+      selector: node/my_path
 
   ids:
     title:
@@ -44,6 +48,17 @@ process:
         name: main_section
         parent: 'constants/pseudo_field_district_tid'
         field_product: 'constants/product_term_tid'
+
+  path/alias:
+    plugin: concat
+    delimiter:
+    source:
+      - constants/slash_character
+      - my_path
+
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
 
 destination:
   plugin: 'entity:node'
