@@ -6,6 +6,17 @@ source:
     product_term_tid: 9
     slash_character: '/'
 
+    # The following value is PathautoState::SKIP. It tells pathauto not to create its own alias.
+    # If you were doing this in code it would be like this:
+    #
+    # $node->path = [
+    #   'alias' => '/my-custom-alias',
+    #   'pathauto' => PathautoState::SKIP,
+    # ];
+    # $node->save();
+
+    pathauto_state__skip: 0
+
   plugin: url
   data_fetcher_plugin: file
   data_parser_plugin: json
@@ -56,9 +67,7 @@ process:
       - constants/slash_character
       - my_path
 
-  path/pathauto:
-    plugin: default_value
-    default_value: 0
+  path/pathauto: constants/pathauto_state__skip
 
 destination:
   plugin: 'entity:node'
